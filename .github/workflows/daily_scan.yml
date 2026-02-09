@@ -27,4 +27,4 @@ jobs:
         env:
           # This connects the script to the Secret Key you saved on GitHub
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
-        run: python main.py
+        run: python flight_bot.py
