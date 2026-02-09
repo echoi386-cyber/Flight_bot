@@ -1,0 +1,30 @@
+name: Daily Flight Scan
+
+on:
+  schedule:
+    # Runs at 12:00 UTC every day
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Allows you to click a button to run it manually
+
+jobs:
+  run-scanner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install libraries
+        run: |
+          pip install google-search-results python-dotenv
+
+      - name: Run Flight Bot
+        env:
+          # This connects the script to the Secret Key you saved on GitHub
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: python main.py
